@@ -2,63 +2,63 @@
 
 This Project is a part of Nano Degree based on Full Stack Development by Udacity. This Project This page explains how to secure and set up a Linux server configuration on a virtual machine, install and configure a web and database server to host a web application.
 
-The Linux distribution is Ubuntu 18.04 LTS.
-The virtual private server is Amazon EC2.
-The web application is my Item Catalog project created earlier in this Nanodegree program.
-The database server is PostgreSQL.
-You can visit http:http://54.208.142.142.xip.io/ compute-1.amazonaws.com/ for the website deployed.
-Steps to connect to Amazon EC2:
-Firstly, open your AWS Educate and login to your account.
-After logging in, go to your lab which is activated for you and Click on start lab. Now your lab is running, and it should run till the end of your deployment process.
-Click on Open Console and then go to All Services. Select EC2.
-Now Change the server to N. Virginia for creating an instance.
-Click on Launch Instance and select your preferred instance. In this project, the instance used is Ubuntu Server 18.04 LTS.
-After selecting, Click on Review and Launch and again select Launch.
-Choose “Create a new Pair” and edit the key pair name and Download it. The downloaded file is of the format “.pem”.
-Now Click on Launch Instance and give it a name. It shows that instance is running.
-Click on Description which is at the end of the page and Copy your Public DNS and Public IP
-Click on view Launch log to check whether it is running successfully.
-Now, click on launch wizard-2 and Click on Inbound. In this you must add the rules for incoming connections i.e., add port for SSH (2200), HTTP (80) and NTP (123) and save.
-To use privatekey link
+- The Linux distribution is Ubuntu 18.04 LTS.
+- The virtual private server is Amazon EC2.
+- The web application is my Item Catalog project created earlier in this Nanodegree program.
+- The database server is PostgreSQL.
+- You can visit http:http://54.208.142.142.xip.io/ compute-1.amazonaws.com/ for the website deployed.
+#Steps to connect to Amazon EC2:
+- Firstly, open your AWS Educate and login to your account.
+- After logging in, go to your lab which is activated for you and Click on start lab. Now your lab is running, and it should run till the end of your deployment process.
+- Click on Open Console and then go to All Services. Select EC2.
+- Now Change the server to N. Virginia for creating an instance.
+- Click on Launch Instance and select your preferred instance. In this project, the instance used is Ubuntu Server 18.04 LTS.
+- After selecting, Click on Review and Launch and again select Launch.
+- Choose “Create a new Pair” and edit the key pair name and Download it. The downloaded file is of the format “.pem”.
+- Now Click on Launch Instance and give it a name. It shows that instance is running.
+- Click on Description which is at the end of the page and Copy your Public DNS and Public IP
+- Click on view Launch log to check whether it is running successfully.
+- Now, click on launch wizard-2 and Click on Inbound. In this you must add the rules for incoming connections i.e., add port for SSH (2200), HTTP (80) and NTP (123) and save.
+- To use privatekey link
 
 Public IP address is54.208.142.142.xip.io/
 
-Linux Server Configuration steps:
-Firstly, create a new folder and place the downloaded .pem file in it.
+#Linux Server Configuration steps:
+- Firstly, create a new folder and place the downloaded .pem file in it.
+- open folder in Git Bash by the following command:
 
-open folder in Git Bash by the following command:
+ 'ssh -i Linux_Server_6.pem ubuntu54.208.142.142'
+- you need to update the packages
 
-  ssh -i Linux_Server_6.pem ubuntu54.208.142.142
-you need to update the packages
-
-	  sudo apt-get update
-	  sudo apt-get upgrade
-After installing packages, open the file:
+	  'sudo apt-get update'
+	  'sudo apt-get upgrade'
+- After installing packages, open the file:
 
   sudo vi /etc/ssh/sshd_config
 In this file, Change the port number from 22 to 2200 and save it (Esc and :wq)
 
-Restarting the service using :
+- Restarting the service using :
 
-  sudo service ssh restart
-Now open the file with ssh port 2200. It is to check whether the port 2200 is working or not.
+  'sudo service ssh restart'
+- Now open the file with ssh port 2200. It is to check whether the port 2200 is working or not.
 
- ssh -i linux_Server_6.pem -p 2200 ubuntu@3.84.54.212 address
-Now add the following commands to configure the Firewall (UFW):
+'ssh -i linux_Server_6.pem -p 2200 ubuntu@3.84.54.212 address'
+- Now add the following commands to configure the Firewall (UFW):
 
-              sudo ufw default deny incoming
-	       sudo ufw default allow outgoing
-	       sudo ufw default allow 2200/TCP
-              sudo ufw default allow www
-	       sudo ufw default allow 123/NTP
-	       sudo ufw default deny 22
-	       sudo ufw default enable
+              'sudo ufw default deny incoming'
+	       'sudo ufw default allow outgoing'
+	       'sudo ufw default allow 2200/TCP'
+              'sudo ufw default allow www'
+	       'sudo ufw default allow 123/NTP'
+	       'sudo ufw default deny 22'
+	       'sudo ufw default enable'
 After Proceed Option Y/N - Y
 
-To check status:
-		sudo ufw status
+-To check status:
+		'sudo ufw status'
 
-		To                         Action      From
+	''
+	To                         Action      From
    	--                         ------      ----
    	2200/tcp                   ALLOW       Anywhere                  
    	80/tcp                     ALLOW       Anywhere                  
@@ -67,47 +67,47 @@ To check status:
    	2200/tcp (v6)              ALLOW       Anywhere (v6)             
    	80/tcp (v6)                ALLOW       Anywhere (v6)             
    	123/udp (v6)               ALLOW       Anywhere (v6)             
-   	22 (v6)                    DENY        Anywhere (v6) 
+   	''22 (v6)                    DENY        Anywhere (v6) 
 After Completing the above steps, now you need to create a User.
 
-Creating a new User grader
-Firstly, login using Ubuntu user. Now, add user using :
+#Creating a new User grader
+- Firstly, login using Ubuntu user. Now, add user using :
 
-  sudo adduser grader
+  'sudo adduser grader'
 Enter password.
 
-Giving premissions to grader in the sudoers file:
+- Giving premissions to grader in the sudoers file:
 
-  sudo visudo
-Now edit the file by adding below the line: root ALL=(ALL:ALL) ALL Add the following line to give sudo privileges to grader user:
+  'sudo visudo'
+- Now edit the file by adding below the line: root ALL=(ALL:ALL) ALL Add the following line to give sudo privileges to grader user:
 
-  	grader  ALL=(ALL:ALL) ALL
-Save and exit using ctrl+x and confirm with Y.
+  	'grader  ALL=(ALL:ALL) ALL'
+- Save and exit using ctrl+x and confirm with Y.
 
-To verify the grader as sudo permission:
+- To verify the grader as sudo permission:
 
-  su -grader
-Enter password.
+  'su -grader'
+'Enter password'.
 
-Now, create SSH key-pair for grader. Cofigure keypairs for grader. Create .ssh folder by:
+- Now, create SSH key-pair for grader. Cofigure keypairs for grader. Create .ssh folder by:
 
-mkdir /home/grader/.ssh
+'mkdir /home/grader/.ssh'
 
-Change to User grader
+-Change to User grader
 
-su grader
+'su grade'
 
 RUN this command:
 
-  sudo cp /home/ubuntu/.ssh/authorized_keys /home/grader/.ssh/authorized_keys.
-Now change ownership:
+  'udo cp /home/ubuntu/.ssh/authorized_keys /home/grader/.ssh/authorized_keys.'
+- change ownership:
 
-  chown grader.grader /home/grader/.ssh.
+ 'chown grader.grader /home/grader/.ssh.'
 Now add grader to sudogroup. sudo su usermod -aG sudo grader
 
 change permissions for .ssh folder:
 
-chmod 0700 /home/grader/.ssh/
+-chmod 0700 /home/grader/.ssh/'
 
 For authorized Keys:
 
