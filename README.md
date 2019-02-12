@@ -42,7 +42,7 @@ In this file, Change the port number from 22 to 2200 and save it (Esc and :wq)
   'sudo service ssh restart'
 - Now open the file with ssh port 2200. It is to check whether the port 2200 is working or not.
 
-'ssh -i linux_Server_6.pem -p 2200 ubuntu@3.84.54.212 address'
+'ssh -i linux_Server_6.pem -p 2200 ubuntu@54.208.142.142address'
 - Now add the following commands to configure the Firewall (UFW):
 
               'sudo ufw default deny incoming'
