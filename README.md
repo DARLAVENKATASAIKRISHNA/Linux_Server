@@ -109,7 +109,7 @@ change permissions for .ssh folder:
 
 -chmod 0700 /home/grader/.ssh/'
 
-For authorized Keys:
+-For authorized Keys:
 
   chmod 644 authorized_keys
 Now go to vi /etc/ssh/ssh_config. In this you have to edit some authentications
@@ -228,7 +228,7 @@ sudo nano /etc/apache2/sites-available/Project.conf
 
 It shows
 
- <VirtualHost *:80>
+ '<VirtualHost *:80>
     ServerName http://54.208.142.142.xip.io/
     	ServerAlias ec2-3-84-54-212.compute-1.amazonaws.com
     	ServerAdmin ubuntu@54.210.140.47
@@ -247,82 +247,82 @@ It shows
     	ErrorLog ${APACHE_LOG_DIR}/error.log
     	LogLevel warn
     	CustomLog ${APACHE_LOG_DIR}/access.log combined
-</VirtualHost>
-Now Enable the virtual host by using the command:
+</VirtualHost>'
+'Now Enable the virtual host by using the command:
 
-  sudo a2ensite catalog
-After enabling site catalog, to activate the new configuration you need to run:
+ ' sudo a2ensite catalog'
+- After enabling site catalog, to activate the new configuration you need to run:
 
-  sudo service apache2 reload
-Steps to set Flask Application
+  'sudo service apache2 reload'
+- Steps to set Flask Application
 
-create file and copy below content
+- create file and copy below content
 
- /var/www/catalog/catalog.wsgi
+ ''/var/www/catalog/catalog.wsgi
  	import sys
   	import logging
   	logging.basicConfig(stream=sys.stderr)
         sys.path.insert(0, "/var/www/catalog/")
      	from catalog import app as application
-     	application.secret_key = 'supersecretkey'
-After that perform Reload and restart Apache using: sudo service apache2 reload sudo service apache2 restart
+     ''	application.secret_key = 'supersecretkey'
+- After that perform Reload and restart Apache using: sudo service apache2 reload sudo service apache2 restart
 
-Now create Virtual Environment.
+- Now create Virtual Environment.
 
-  sudo virtualenv -p python venv
-Now change the ownership permissions:
+  - sudo virtualenv -p python venv
+- Now change the ownership permissions:
 
-  sudo chown -R grader:grader venv.`
-Finally, activate virtual environment:
+  -  sudo chown -R grader:grader venv.`
+- Finally, activate virtual environment:
 
-  . venv/bin/activate
-After activating Virtual environment, you need to install the following packages:
+  ''. venv/bin/activate
+#After activating Virtual environment, you need to install the following packages:
 
-	sudo apt-get install pip3
+	''sudo apt-get install pip3
 	 pip3 install flask 
 	 pip3 install sqlalchemy 
 	 pip3 install httplib2 
 	 pip3 install requests 
 	 pip3 install --upgrade oauth2client 
-	 pip3 install psycopg2-binary sudo apt-get install libpq-dev
-By using above commands you successfully install all packages. If you found error no module found then try this command:
+	 ''pip3 install psycopg2-binary sudo apt-get install libpq-dev
+#By using above commands you successfully install all packages. If you found error no module found then try this command:
 
-  sudo -H pip3 install packagename(pip3,flask,sqlalchemy...)
-Now disable the default Apache site using following command:
+ -  sudo -H pip3 install packagename(pip3,flask,sqlalchemy...)
+- Now disable the default Apache site using following command:
 
-  sudo a2dissite 000-default.conf
-The following prompt will be returned:
+  - sudo a2dissite 000-default.conf
+- The following prompt will be returned:
 
-  Site 000-default disabled
-To activate the new configuration, you need to run:
+  - Site 000-default disabled
+- To activate the new configuration, you need to run:
 
-   service apache2 reload
-Reload Apache:
+  -  service apache2 reload
+- Reload Apache:
 
-  sudo service apache2 reload
-You need to edit the python source file:
+  'sudo service apache2 reload'
+- You need to edit the python source file:
 
-  sudo vi python __init__.py
-At database import statement add:
+  'sudo vi python __init__.py'
+- At database import statement add:
 
-from catalog.database import *
+- from catalog.database import *
 
-At specification of client_secrets.json, replace with /var/www/catalog/catalog/client_secrets.json
+- At specification of client_secrets.json, replace with /var/www/catalog/catalog/client_secrets.json
 
-Now save the file and again reload apache.
+- Now save the file and again reload apache.
 
-Run database file and Sample Items file
+- Run database file and Sample Items file
 
-		 python database_setup.py
-	 	 python lots_of_menus.py
-Now reload and restart the apache
-Security Updates and package updates use these commands.
-  	    sudo apt-get upgrade
-       	    sudo apt-get dist-upgrade
-To check any errors found while running the web application, check the error logs by using
+		'python database_setup.py'
+	 	 'python lots_of_menus.py'
+- Now reload and restart the apache
+- Security Updates and package updates use these commands.
+  	    'sudo apt-get upgrade'
+       	    'sudo apt-get dist-upgrade'
+- To check any errors found while running the web application, check the error logs by using
 
-  sudo tail -f /var/log/apache2/error.log
-After resolving the errors, run the application in the web browser:
+  'sudo tail -f /var/log/apache2/error.log'
+- After resolving the errors, run the application in the web browser:
 
 http://54.208.142.142.xip.io/
 
